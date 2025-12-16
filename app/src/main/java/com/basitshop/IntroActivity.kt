@@ -1,48 +1,31 @@
 package com.basitshop
 
-import android.animation.ObjectAnimator
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class IntroActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
-        val logo = findViewById<View>(R.id.img_logo)
-        val btnGetStarted = findViewById<View>(R.id.btn_get_started)
+        // Views ko ID se link karna
+        val topDesign = findViewById<ImageView>(R.id.img_top_design)
+        val bottomDesign = findViewById<ImageView>(R.id.img_bottom_design)
+        val brandName = findViewById<TextView>(R.id.txt_brand_name)
 
-        // 1. Logo Animation (Fade In + Scale)
-        logo.alpha = 0f
-        logo.scaleX = 0.5f
-        logo.scaleY = 0.5f
-        
-        logo.animate()
-            .alpha(1f)
-            .scaleX(1f)
-            .scaleY(1f)
-            .setDuration(1000)
-            .withEndAction {
-                // 2. Button Animation (Slide Up + Fade In)
-                btnGetStarted.translationY = 100f
-                btnGetStarted.animate()
-                    .alpha(1f)
-                    .translationY(0f)
-                    .setDuration(800)
-                    .start()
-            }
-            .start()
+        // Animations Load karna (Make sure anim folder me files hain)
+        val animTop = AnimationUtils.loadAnimation(this, R.anim.top_down)
+        val animBottom = AnimationUtils.loadAnimation(this, R.anim.bottom_up)
+        val animText = AnimationUtils.loadAnimation(this, R.anim.left_fade_in)
 
-        // 3. Button Click -> Navigate to Login
-        btnGetStarted.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            // Outro Transition (Fade Out)
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            finish()
-        }
+        // Animations Start karna
+        topDesign.startAnimation(animTop)
+        bottomDesign.startAnimation(animBottom)
+        brandName.startAnimation(animText)
     }
 }
 
