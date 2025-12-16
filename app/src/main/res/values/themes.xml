@@ -9,13 +9,21 @@
         <item name="colorSecondaryVariant">@color/colorPrimary</item>
         <item name="colorOnSecondary">@color/white</item>
         
-        <item name="android:statusBarColor">@color/colorBackground</item>
-        <item name="android:windowLightStatusBar">true</item>
-        
-        <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:textColor">@color/colorText</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
         
         <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        
     </style>
 </resources>
-
