@@ -1,60 +1,65 @@
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import androidx.appcompat.app.AppCompatActivity;
+package com.basitshop // Make sure ye package name aapke project se match kare
 
-public class IntroActivity extends AppCompatActivity {
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 
-    ImageView shapeTop, shapeBottom, iconArrow;
-    View containerMain;
-    LinearLayout layoutButton;
-    FrameLayout btnGlassAction;
+class IntroActivity : AppCompatActivity() {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
+    // Variables declare kar rahe hain (Kotlin style)
+    private lateinit var shapeTop: ImageView
+    private lateinit var shapeBottom: ImageView
+    private lateinit var iconArrow: ImageView
+    private lateinit var containerMain: LinearLayout
+    private lateinit var layoutButton: LinearLayout
+    private lateinit var btnGlassAction: FrameLayout
 
-        // Hooks
-        shapeTop = findViewById(R.id.shape_top);
-        shapeBottom = findViewById(R.id.shape_bottom);
-        containerMain = findViewById(R.id.container_main);
-        layoutButton = findViewById(R.id.layout_button);
-        btnGlassAction = findViewById(R.id.btn_glass_action);
-        iconArrow = findViewById(R.id.icon_arrow);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_intro)
 
-        // Load Animations
-        Animation animFromTop = AnimationUtils.loadAnimation(this, R.anim.from_top);
-        Animation animFromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
-        Animation animLeftPop = AnimationUtils.loadAnimation(this, R.anim.left_pop_fade);
-        Animation animButtonBounce = AnimationUtils.loadAnimation(this, R.anim.button_up_bounce);
-        Animation animArrowShake = AnimationUtils.loadAnimation(this, R.anim.arrow_shake);
+        // IDs find kar rahe hain
+        shapeTop = findViewById(R.id.shape_top)
+        shapeBottom = findViewById(R.id.shape_bottom)
+        containerMain = findViewById(R.id.container_main)
+        layoutButton = findViewById(R.id.layout_button)
+        btnGlassAction = findViewById(R.id.btn_glass_action)
+        iconArrow = findViewById(R.id.icon_arrow)
 
-        // Set Animations
-        shapeTop.startAnimation(animFromTop);
-        shapeBottom.startAnimation(animFromBottom);
-        containerMain.startAnimation(animLeftPop);
+        // Animations Load kar rahe hain
+        // Note: 'this' context sahi se pass ho raha hai
+        val animFromTop = AnimationUtils.loadAnimation(this, R.anim.from_top)
+        val animFromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom)
+        val animLeftPop = AnimationUtils.loadAnimation(this, R.anim.left_pop_fade)
+        val animButtonBounce = AnimationUtils.loadAnimation(this, R.anim.button_up_bounce)
+        val animArrowShake = AnimationUtils.loadAnimation(this, R.anim.arrow_shake)
+
+        // Animations Start kar rahe hain
+        shapeTop.startAnimation(animFromTop)
+        shapeBottom.startAnimation(animFromBottom)
+        containerMain.startAnimation(animLeftPop)
         
-        // Button comes from bottom with bounce
-        layoutButton.startAnimation(animButtonBounce);
+        // Button neeche se bounce karega
+        layoutButton.startAnimation(animButtonBounce)
         
-        // Arrow keeps shaking/wiggling inside the button
-        iconArrow.startAnimation(animArrowShake);
+        // Arrow hilti rahegi (Shake animation)
+        iconArrow.startAnimation(animArrowShake)
 
-        // Click Listener to open Login Screen
-        View.OnClickListener startAction = v -> {
-            Intent intent = new Intent(IntroActivity.this, LoginActivity.class); // LoginActivity class name check kar lena
-            startActivity(intent);
-            // Optional: Finish this activity so user can't go back
-            // finish();
-        };
+        // Click Listener (Kotlin Lambda Style)
+        val startAction = View.OnClickListener {
+            // LoginActivity par jane ke liye Intent
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            // finish() // Agar wapis nahi ana to ye line uncomment kar den
+        }
 
-        btnGlassAction.setOnClickListener(startAction);
-        layoutButton.setOnClickListener(startAction); // Text area click karne par bhi kaam karega
+        // Dono elements par click listener set kar diya
+        btnGlassAction.setOnClickListener(startAction)
+        layoutButton.setOnClickListener(startAction)
     }
 }
