@@ -6,11 +6,10 @@
         android:allowBackup="true"
         android:label="BasitShop"
         
-        android:icon="@drawable/app_logo"
-        android:roundIcon="@drawable/app_logo"
+        android:icon="@drawable/app_icon"
+        android:roundIcon="@drawable/app_icon"
         
         android:supportsRtl="true"
-        
         android:theme="@style/Theme.BasitShop">
 
         <activity
