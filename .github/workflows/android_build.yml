@@ -19,15 +19,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Humne chmod aur wrapper steps hata diye hain
-    
     - name: Build Debug APK with Global Gradle
-      # Note: Hum './gradlew' nahi balki seedha 'gradle' use kar rahe hain
-      run: gradle assembleDebug --no-daemon
+      # YAHAN DEKHO: Humne '-P' laga kar zabardasti settings bhej di hain
+      run: gradle assembleDebug --no-daemon -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
       with:
         name: BasitShop-Debug-APK
         path: app/build/outputs/apk/debug/app-debug.apk
-
