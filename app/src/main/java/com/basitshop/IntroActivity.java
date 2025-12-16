@@ -29,7 +29,7 @@ public class IntroActivity extends AppCompatActivity {
         shapeBottom = findViewById(R.id.shape_bottom);
         txtBrandName = findViewById(R.id.txt_brand_name); // New ID
         layoutButton = findViewById(R.id.layout_button);
-        btnGlassAction = findViewById(R.id.btn_glass_action);
+        btnGlassAction = findViewById(R.id.btn_action_container);
         iconArrow = findViewById(R.id.icon_arrow);
 
         // 2. Animations Load kar rahe hain
