@@ -1,69 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="#F5F5F5">
 
+    <!-- Top Left Corner Decoration -->
     <ImageView
-        android:id="@+id/img_top_design"
+        android:id="@+id/shape_top"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:src="@drawable/design_top_left"
+        android:src="@drawable/ic_corner_shape"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_brand_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BASITSHOP"
-        android:textColor="#FFFFFF"
-        android:textSize="32sp"
-        android:letterSpacing="0.1"
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="bold"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <!-- Bottom Right Corner Decoration -->
     <ImageView
-        android:id="@+id/img_bottom_design"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/design_bottom_right"
+        android:id="@+id/shape_bottom"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/ic_corner_shape"
+        android:rotation="180"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Main Center Content -->
     <LinearLayout
-        android:id="@+id/btn_get_started"
+        android:id="@+id/container_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45">
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/app_icon"
+            android:elevation="10dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Welcome Home"
+            android:textColor="#2D2D2D"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Experience the future of design\nwith smooth animations."
+            android:textAlignment="center"
+            android:textColor="#757575"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"/>
+
+    </LinearLayout>
+
+    <!-- Bottom Button Container -->
+    <LinearLayout
+        android:id="@+id/layout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_button_orange"
+        android:orientation="vertical"
         android:gravity="center"
-        android:paddingHorizontal="32dp"
-        android:paddingVertical="14dp"
-        android:alpha="0" 
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Glass Button with Arrow -->
+        <FrameLayout
+            android:id="@+id/btn_glass_action"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/bg_glass_round"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="6dp">
+
+            <!-- Arrow Icon (Standard Android arrow, rotated) -->
+            <ImageView
+                android:id="@+id/icon_arrow"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_media_play"
+                android:rotation="-45"
+                app:tint="#FF9800" />
+                <!-- Note: Using standard play icon rotated -45 deg looks like arrow pointing top-right. 
+                     If you have a specific arrow drawable, replace src above. -->
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Get Started"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FF9800"
+            android:layout_marginTop="12dp"
+            android:letterSpacing="0.05"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
