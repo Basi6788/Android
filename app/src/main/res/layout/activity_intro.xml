@@ -5,70 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:attr/windowBackground">
-    <!-- ?android:attr/windowBackground ka matlab hai system theme follow karega -->
 
-    <!-- Top Left Corner Image (PNG) -->
+    <!-- Top Left Corner Image (Bada Size aur fitXY) -->
     <ImageView
         android:id="@+id/shape_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:src="@drawable/top_left"
-        android:adjustViewBounds="true"
-        android:scaleType="fitStart"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Bottom Right Corner Image (PNG) -->
+    <!-- Bottom Right Corner Image (Bada Size aur fitXY) -->
     <ImageView
         android:id="@+id/shape_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:src="@drawable/bottom_right"
-        android:adjustViewBounds="true"
-        android:scaleType="fitEnd"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Center Content -->
+    <!-- Main Content (Left Aligned) -->
     <LinearLayout
         android:id="@+id/container_main"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
         app:layout_constraintBottom_toTopOf="@+id/layout_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45">
+        app:layout_constraintVertical_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.0">
 
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/app_icon"
             android:elevation="12dp"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <!-- Text Color ko Theme Aware bana diya hai -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Welcome Home"
+            android:layout_marginTop="30dp"
+            android:text="Welcome\nHome"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="28sp"
+            android:textSize="36sp"
             android:textStyle="bold"
+            android:lineSpacingExtra="-5dp"
             android:fontFamily="sans-serif-black"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:text="Experience the future of design\nwith smooth animations."
-            android:textAlignment="center"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="16sp"
-            android:lineSpacingExtra="4dp"/>
+            android:lineSpacingExtra="4dp"
+            android:alpha="0.8"/>
 
     </LinearLayout>
 
@@ -80,7 +80,6 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginBottom="50dp"
-        android:elevation="20dp"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,15 +88,15 @@
 
         <FrameLayout
             android:id="@+id/btn_glass_action"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/bg_glass_round"
-            android:elevation="6dp">
+            android:elevation="8dp">
 
             <ImageView
                 android:id="@+id/icon_arrow"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:src="@android:drawable/ic_media_play"
                 android:rotation="-45"
@@ -108,10 +107,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Get Started"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="#FF9800"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:letterSpacing="0.05"/>
 
     </LinearLayout>
