@@ -19,8 +19,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Build Debug APK with Global Gradle
-      # YAHAN DEKHO: Humne '-P' laga kar zabardasti settings bhej di hain
+    # YE HAI MAGIC FIX: Hum zabardasti Gradle 8.5 install karwa rahe hain
+    - name: Setup Gradle 8.5
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '8.5'
+
+    - name: Build Debug APK
+      # Ab ye Gradle 8.5 use karega jo compatible hai
       run: gradle assembleDebug --no-daemon -Pandroid.useAndroidX=true -Pandroid.enableJetifier=true
 
     - name: Upload Debug APK
