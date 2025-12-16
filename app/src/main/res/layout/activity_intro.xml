@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"> 
+    android:background="?android:attr/windowBackground">
+
     <ImageView
         android:id="@+id/shape_top"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/top_left"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,8 +17,8 @@
 
     <ImageView
         android:id="@+id/shape_bottom"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/bottom_right"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BASITSHOP"
-        android:textColor="@android:color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="42sp"
         android:textStyle="bold"
         android:letterSpacing="0.15"
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="60dp" 
         android:clickable="true"
         android:focusable="true"
         android:elevation="10dp"
@@ -63,10 +64,11 @@
 
             <ImageView
                 android:id="@+id/icon_arrow"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_triangle_down" 
+                android:src="@android:drawable/ic_media_play"
+                android:rotation="90"
                 app:tint="#FF9800" />
         </FrameLayout>
 
@@ -77,7 +79,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="#FF9800"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:letterSpacing="0.05"/>
 
     </LinearLayout>
