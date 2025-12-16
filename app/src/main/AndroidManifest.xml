@@ -11,16 +11,18 @@
         
         android:supportsRtl="true"
         
-        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        android:theme="@style/Theme.BasitShop">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".LoginActivity" />
 
         <activity android:name=".RegisterActivity" />
 
