@@ -6,36 +6,34 @@
     android:layout_height="match_parent"
     android:background="?android:attr/windowBackground">
 
-    <!-- Top Left Image (Thoda sa bara size: 250dp) -->
     <ImageView
         android:id="@+id/shape_top"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/top_left"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop" 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Bottom Right Image (Thoda sa bara size: 250dp) -->
     <ImageView
         android:id="@+id/shape_bottom"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/bottom_right"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Center Text: Sirf BASITSHOP -->
     <TextView
         android:id="@+id/txt_brand_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BASITSHOP"
         android:textColor="?android:attr/textColorPrimary"
-        android:textSize="42sp"
+        android:textSize="44sp"
         android:textStyle="bold"
-        android:letterSpacing="0.15"
+        android:letterSpacing="0.2"
+        android:elevation="10dp"
         android:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,32 +41,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.45" />
 
-    <!-- Bottom Button Container -->
     <LinearLayout
         android:id="@+id/layout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="50dp"
         android:clickable="true"
         android:focusable="true"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Glass Round Button -->
         <FrameLayout
             android:id="@+id/btn_glass_action"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@drawable/bg_glass_round"
             android:elevation="8dp">
 
             <ImageView
                 android:id="@+id/icon_arrow"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:src="@android:drawable/ic_media_play"
                 android:rotation="-45"
@@ -79,11 +76,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Get Started"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="#FF9800"
-            android:layout_marginTop="16dp"
-            android:letterSpacing="0.05"/>
+            android:layout_marginTop="12dp"
+            android:letterSpacing="0.1"/>
 
     </LinearLayout>
 
