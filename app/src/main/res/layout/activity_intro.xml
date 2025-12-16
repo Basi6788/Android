@@ -4,35 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="?android:attr/windowBackground">
+    <!-- ?android:attr/windowBackground ka matlab hai system theme follow karega -->
 
-    <!-- Top Left Corner Design (Exact Corner) -->
+    <!-- Top Left Corner Image (PNG) -->
     <ImageView
         android:id="@+id/shape_top"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:src="@drawable/ic_corner_shape"
-        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/top_left"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Bottom Right Corner Design (Exact Corner) -->
-    <!-- Isay rotation 180 di hai taaki ye opposite side par fit ho -->
+    <!-- Bottom Right Corner Image (PNG) -->
     <ImageView
         android:id="@+id/shape_bottom"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:src="@drawable/ic_corner_shape"
-        android:rotation="180"
-        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bottom_right"
+        android:adjustViewBounds="true"
+        android:scaleType="fitEnd"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Center Content (Logo & Text) -->
+    <!-- Center Content -->
     <LinearLayout
         android:id="@+id/container_main"
         android:layout_width="match_parent"
@@ -52,12 +49,13 @@
             android:elevation="12dp"
             tools:srcCompat="@tools:sample/avatars" />
 
+        <!-- Text Color ko Theme Aware bana diya hai -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Welcome Home"
-            android:textColor="#2D2D2D"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="28sp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"/>
@@ -68,13 +66,13 @@
             android:layout_marginTop="8dp"
             android:text="Experience the future of design\nwith smooth animations."
             android:textAlignment="center"
-            android:textColor="#757575"
+            android:textColor="?android:attr/textColorSecondary"
             android:textSize="16sp"
             android:lineSpacingExtra="4dp"/>
 
     </LinearLayout>
 
-    <!-- Bottom Button Container (Navigation bar se thora upar) -->
+    <!-- Bottom Button Container -->
     <LinearLayout
         android:id="@+id/layout_button"
         android:layout_width="wrap_content"
@@ -89,7 +87,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Glass Button with Arrow -->
         <FrameLayout
             android:id="@+id/btn_glass_action"
             android:layout_width="70dp"
@@ -97,7 +94,6 @@
             android:background="@drawable/bg_glass_round"
             android:elevation="6dp">
 
-            <!-- Arrow Icon -->
             <ImageView
                 android:id="@+id/icon_arrow"
                 android:layout_width="32dp"
