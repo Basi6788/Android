@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5">
 
-    <!-- Top Left Corner Decoration -->
+    <!-- Top Left Corner Design (Exact Corner) -->
     <ImageView
         android:id="@+id/shape_top"
         android:layout_width="180dp"
@@ -14,9 +14,12 @@
         android:src="@drawable/ic_corner_shape"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <!-- Bottom Right Corner Decoration -->
+    <!-- Bottom Right Corner Design (Exact Corner) -->
+    <!-- Isay rotation 180 di hai taaki ye opposite side par fit ho -->
     <ImageView
         android:id="@+id/shape_bottom"
         android:layout_width="180dp"
@@ -25,9 +28,11 @@
         android:rotation="180"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <!-- Main Center Content -->
+    <!-- Center Content (Logo & Text) -->
     <LinearLayout
         android:id="@+id/container_main"
         android:layout_width="match_parent"
@@ -44,7 +49,7 @@
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:src="@drawable/app_icon"
-            android:elevation="10dp"
+            android:elevation="12dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
@@ -69,14 +74,17 @@
 
     </LinearLayout>
 
-    <!-- Bottom Button Container -->
+    <!-- Bottom Button Container (Navigation bar se thora upar) -->
     <LinearLayout
         android:id="@+id/layout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="50dp"
+        android:elevation="20dp"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -87,11 +95,9 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@drawable/bg_glass_round"
-            android:clickable="true"
-            android:focusable="true"
             android:elevation="6dp">
 
-            <!-- Arrow Icon (Standard Android arrow, rotated) -->
+            <!-- Arrow Icon -->
             <ImageView
                 android:id="@+id/icon_arrow"
                 android:layout_width="32dp"
@@ -100,15 +106,13 @@
                 android:src="@android:drawable/ic_media_play"
                 android:rotation="-45"
                 app:tint="#FF9800" />
-                <!-- Note: Using standard play icon rotated -45 deg looks like arrow pointing top-right. 
-                     If you have a specific arrow drawable, replace src above. -->
         </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Get Started"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#FF9800"
             android:layout_marginTop="12dp"
