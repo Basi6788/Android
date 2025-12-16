@@ -3,7 +3,7 @@ package com.basitshop;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build; // Version check ke liye zaroori hai
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -33,14 +33,23 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // --- 1. SCREEN EDGES FIX (Mobile ke corners tak layout phelane ke liye) ---
+        // ================================================================
+        //  THE UNIVERSAL FULLSCREEN FIX (HAR PHONE KE LIYE)
+        // ================================================================
+        
+        // 1. Layout No Limits: Ye layout ko screen ke hardware edges tak le jayega
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, 
                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
+        // 2. Hide Navigation Bar (Optional): Agar neechay walay buttons bhi hatane hain
+        // w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        
+        // ================================================================
+
         setContentView(R.layout.activity_intro);
 
-        // --- 2. IDs Find Karna ---
+        // IDs
         shapeTop = findViewById(R.id.shape_top);
         shapeBottom = findViewById(R.id.shape_bottom);
         txtBrandName = findViewById(R.id.txt_brand_name);
@@ -48,7 +57,7 @@ public class IntroActivity extends AppCompatActivity {
         btnActionContainer = findViewById(R.id.btn_action_container);
         iconArrow = findViewById(R.id.icon_arrow);
 
-        // --- 3. Animations ---
+        // Animations
         Animation animFromTop = AnimationUtils.loadAnimation(this, R.anim.from_top);
         Animation animFromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
         Animation animLeftPop = AnimationUtils.loadAnimation(this, R.anim.left_pop_fade);
@@ -61,7 +70,7 @@ public class IntroActivity extends AppCompatActivity {
         layoutButton.startAnimation(animButtonBounce);
         iconArrow.startAnimation(animArrowShake);
 
-        // --- 4. Click Listener ---
+        // Click Logic
         View.OnClickListener startAction = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,29 +83,23 @@ public class IntroActivity extends AppCompatActivity {
         btnActionContainer.setOnClickListener(startAction);
         layoutButton.setOnClickListener(startAction);
 
-        // --- 5. SMART PERMISSIONS (Android Version ke hisab se) ---
+        // Permissions Check
         checkAndRequestPermissions();
     }
 
     private void checkAndRequestPermissions() {
         List<String> listPermissionsNeeded = new ArrayList<>();
-
-        // 1. Location (Har phone ke liye same)
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         }
-
-        // 2. Storage / Media (Android Version check kar ke)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // Android 13 (API 33) aur us se ooper walay phones
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 listPermissionsNeeded.add(Manifest.permission.READ_MEDIA_IMAGES);
             }
         } else {
-            // Android 12 aur purane phones
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
             }
@@ -104,12 +107,8 @@ public class IntroActivity extends AppCompatActivity {
                 listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
         }
-
-        // Agar list khali nahi hai, tu permission maango
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this,
-                    listPermissionsNeeded.toArray(new String[0]),
-                    PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[0]), PERMISSION_REQUEST_CODE);
         }
     }
 }
