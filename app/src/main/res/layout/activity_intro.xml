@@ -83,6 +83,7 @@
 <<<<<<< HEAD
         android:textSize="40sp"
         android:textColor="@color/brand_text"
+        android:fontFamily="@font/space_grotesk_semibold"
         android:letterSpacing="0.22"
 =======
         android:textSize="42sp"
