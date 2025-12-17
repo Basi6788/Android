@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ===== REQUIRED BY THEMES / LIBS ===== -->
+    <color name="colorPrimary">#FF6D00</color>
+    <color name="colorBackground">#121212</color>
+    <color name="colorText">#FFFFFF</color>
+
+    <!-- ===== APP COLORS ===== -->
+    <color name="orange">#FF9800</color>
+
+    <!-- Dark mode background (subtle blue tint) -->
+    <color name="app_background">#0B1020</color>
+
+    <!-- Brand text -->
+    <color name="brand_text">#FFFFFF</color>
+
+    <!-- Inputs -->
+    <color name="colorInputBackground">#2C2C2C</color>
+
+    <!-- Basics -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+</resources>

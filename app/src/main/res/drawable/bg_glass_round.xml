@@ -1,0 +1,20 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    
+    <!-- Gradient for Depth (Top Light, Bottom slightly darker) -->
+    <gradient
+        android:startColor="#1AFF9800"
+        android:endColor="#33FF9800"
+        android:angle="270"
+        android:type="linear"/>
+    
+    <!-- Solid thoda transparent -->
+    <solid android:color="#10FF9800"/>
+    
+    <!-- Stroke (Border) -->
+    <stroke
+        android:width="2dp"
+        android:color="#B3FF9800"/>
+        
+    <size android:width="80dp" android:height="80dp"/>
+</shape>
