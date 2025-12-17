@@ -2,16 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.basitshop">
 
-    <!-- ===== CORE PERMISSIONS ===== -->
+    <!-- Core -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- Android 13+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
-    <!-- Legacy storage (scoped limits) -->
+    <!-- Legacy -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -21,40 +22,37 @@
         android:maxSdkVersion="28" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
         android:label="BasitShop"
         android:icon="@drawable/app_icon"
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.BasitShop">
 
-        <!-- INTRO / SPLASH (LAUNCHER) -->
+        <!-- Intro / Splash -->
         <activity
             android:name=".IntroActivity"
             android:exported="true"
-            android:theme="@style/Theme.BasitShop.NoActionBar"
-            android:screenOrientation="portrait">
+            android:theme="@style/Theme.BasitShop.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
-        <!-- LOGIN -->
+        <!-- Login -->
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:theme="@style/Theme.BasitShop.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:theme="@style/Theme.BasitShop.NoActionBar" />
 
-        <!-- REGISTER -->
+        <!-- Register -->
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-            android:theme="@style/Theme.BasitShop.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:theme="@style/Theme.BasitShop.NoActionBar" />
 
     </application>
 
