@@ -148,6 +148,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal">
+<CheckBox
+    android:id="@+id/cb_remember"
+    android:text="Remember me" />
+
+<TextView
+    android:id="@+id/tv_forgot_password"
+    android:text="Forgot password" />
 
                     <Button
                         android:layout_width="0dp"
