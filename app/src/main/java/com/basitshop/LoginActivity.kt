@@ -1,7 +1,6 @@
 package com.basitshop
 
 import android.content.Intent
-<<<<<<< HEAD
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -11,21 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.basitshop.utils.DisplayManager
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
-=======
-import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
->>>>>>> 317de5e (update)
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
 
 class LoginActivity : AppCompatActivity() {
 
-<<<<<<< HEAD
     private lateinit var emailEt: EditText
     private lateinit var passEt: EditText
     private lateinit var loginBtn: Button
@@ -39,13 +29,10 @@ class LoginActivity : AppCompatActivity() {
     @Volatile
     private var isLoading = false
 
-=======
->>>>>>> 317de5e (update)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-<<<<<<< HEAD
         prefs = getSharedPreferences("auth_prefs", MODE_PRIVATE)
 
         emailEt = findViewById(R.id.et_email)
@@ -56,12 +43,12 @@ class LoginActivity : AppCompatActivity() {
         rememberCheck = findViewById(R.id.cb_remember)
         loginCard = findViewById(R.id.login_card)
 
-        // ===== Entry Animation =====
+        // Entry animation
         loginCard.startAnimation(
             AnimationUtils.loadAnimation(this, R.anim.fade_slide_up)
         )
 
-        // ===== DisplayManager Apply =====
+        // Display handling
         val displayInfo = DisplayManager.getDisplayInfo(this)
         when (displayInfo.deviceType) {
             DisplayManager.DeviceType.TABLET -> loginCard.scaleX = 0.92f
@@ -69,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
             else -> {}
         }
 
-        // ===== Remember Me Restore =====
+        // Restore remember me
         emailEt.setText(prefs.getString("saved_email", ""))
         rememberCheck.isChecked = prefs.getBoolean("remember", false)
 
@@ -108,32 +95,10 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 performForgotPassword(email)
             }
-=======
-        val emailEt = findViewById<EditText>(R.id.et_email)
-        val passEt = findViewById<EditText>(R.id.et_password)
-        val loginBtn = findViewById<Button>(R.id.btn_login)
-        val registerToggle = findViewById<TextView>(R.id.tv_register_toggle)
-
-        loginBtn.setOnClickListener {
-            val email = emailEt.text.toString()
-            val password = passEt.text.toString()
-
-            if(email.isNotEmpty() && password.isNotEmpty()) {
-                performLogin(email, password)
-            } else {
-                Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show()
-            }
-        }
-        
-        registerToggle.setOnClickListener {
-             Toast.makeText(this, "Switching to Register Mode (Logic here)", Toast.LENGTH_SHORT).show()
-             // Yahan tum Register ka logic laga sakte ho, ya text badal sakte ho
->>>>>>> 317de5e (update)
         }
     }
 
     private fun performLogin(email: String, pass: String) {
-<<<<<<< HEAD
         setLoading(true)
 
         thread {
@@ -196,31 +161,10 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 runOnUiThread {
                     toast("Failed to send reset email")
-=======
-        // Simple Networking Thread (Termux friendly, no Retrofit complex setup needed for now)
-        thread {
-            try {
-                // Using Config file URL
-                val url = URL(Config.LOGIN_URL)
-                val conn = url.openConnection() as HttpURLConnection
-                conn.requestMethod = "POST"
-                conn.doOutput = true
-                
-                // Sending Data...
-                // (Yeh basic connection check hai)
-                
-                runOnUiThread {
-                    Toast.makeText(this, "Connecting to ${Config.BASE_URL}...", Toast.LENGTH_LONG).show()
-                }
-            } catch (e: Exception) {
-                runOnUiThread {
-                    Toast.makeText(this, "Connection Error: ${e.message}", Toast.LENGTH_LONG).show()
->>>>>>> 317de5e (update)
                 }
             }
         }
     }
-<<<<<<< HEAD
 
     private fun setLoading(loading: Boolean) {
         isLoading = loading
@@ -232,7 +176,3 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
-=======
-}
-
->>>>>>> 317de5e (update)
