@@ -1,123 +1,185 @@
-package com.basitshop
+package com.basitshop;
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import android.view.animation.AnimationUtils
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import java.io.BufferedWriter
-import java.io.OutputStreamWriter
-import java.net.HttpURLConnection
-import java.net.URL
-import kotlin.concurrent.thread
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-class LoginActivity : AppCompatActivity() {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-    private lateinit var emailEt: EditText
-    private lateinit var passEt: EditText
-    private lateinit var loginBtn: Button
-    private lateinit var registerToggle: TextView
-    private lateinit var loginCard: View
+import java.util.ArrayList;
+import java.util.List;
 
-    @Volatile
-    private var isLoading = false
+public class IntroActivity extends AppCompatActivity {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+    private ImageView shapeTop;
+    private ImageView shapeBottom;
+    private TextView txtBrandName;
+    private FrameLayout swipeContainer;
+    private FrameLayout swipeThumb;
 
-        emailEt = findViewById(R.id.et_email)
-        passEt = findViewById(R.id.et_password)
-        loginBtn = findViewById(R.id.btn_login)
-        registerToggle = findViewById(R.id.tv_register_toggle)
-        loginCard = findViewById(R.id.login_card)
+    private static final int PERMISSION_REQUEST_CODE = 100;
 
-        // Entry animation
-        loginCard.startAnimation(
-            AnimationUtils.loadAnimation(this, R.anim.fade_slide_up)
-        )
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        loginBtn.setOnClickListener {
-            if (isLoading) return@setOnClickListener
+        // Fullscreen
+        Window window = getWindow();
+        window.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
 
-            val email = emailEt.text.toString().trim()
-            val password = passEt.text.toString().trim()
-
-            if (email.isEmpty() || password.isEmpty()) {
-                toast("Fill all fields")
-                return@setOnClickListener
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (window.getInsetsController() != null) {
+                window.getInsetsController().hide(
+                        WindowInsets.Type.statusBars()
+                                | WindowInsets.Type.navigationBars()
+                );
             }
-
-            performLogin(email, password)
+        } else {
+            window.getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            );
         }
 
-        registerToggle.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-            overridePendingTransition(
-                R.anim.fade_slide_right,
-                android.R.anim.fade_out
-            )
+        setContentView(R.layout.activity_intro);
+
+        shapeTop = findViewById(R.id.shape_top);
+        shapeBottom = findViewById(R.id.shape_bottom);
+        txtBrandName = findViewById(R.id.txt_brand_name);
+        swipeContainer = findViewById(R.id.swipe_container);
+        swipeThumb = findViewById(R.id.swipe_thumb);
+
+        // Animations (safe)
+        try {
+            if (shapeTop != null) {
+                Animation a = AnimationUtils.loadAnimation(this, R.anim.from_top);
+                shapeTop.startAnimation(a);
+            }
+            if (shapeBottom != null) {
+                Animation a = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
+                shapeBottom.startAnimation(a);
+            }
+            if (txtBrandName != null) {
+                Animation a = AnimationUtils.loadAnimation(this, R.anim.left_pop_fade);
+                txtBrandName.startAnimation(a);
+            }
+        } catch (Exception ignored) {
         }
+
+        setupSwipeToLogin();
+        checkAndRequestPermissions();
     }
 
-    private fun performLogin(email: String, pass: String) {
-        setLoading(true)
+    private void setupSwipeToLogin() {
+        if (swipeContainer == null || swipeThumb == null) return;
 
-        thread {
-            var conn: HttpURLConnection? = null
-            try {
-                val url = URL(Config.LOGIN_URL)
-                conn = url.openConnection() as HttpURLConnection
-                conn.requestMethod = "POST"
-                conn.connectTimeout = 10000
-                conn.readTimeout = 10000
-                conn.doInput = true
-                conn.doOutput = true
-                conn.setRequestProperty(
-                    "Content-Type",
-                    "application/x-www-form-urlencoded"
-                )
+        swipeThumb.setOnTouchListener(new View.OnTouchListener() {
 
-                val body = "email=$email&password=$pass"
+            float downX;
+            boolean completed = false;
 
-                BufferedWriter(OutputStreamWriter(conn.outputStream, "UTF-8")).use {
-                    it.write(body)
-                    it.flush()
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        downX = event.getRawX();
+                        return true;
+
+                    case MotionEvent.ACTION_MOVE:
+                        float delta = event.getRawX() - downX;
+                        float max = swipeContainer.getWidth() - v.getWidth() - 8;
+                        delta = Math.max(0, Math.min(delta, max));
+                        v.setTranslationX(delta);
+
+                        if (delta > swipeContainer.getWidth() * 0.7f && !completed) {
+                            completed = true;
+                            openLogin(v);
+                        }
+                        return true;
+
+                    case MotionEvent.ACTION_UP:
+                        if (!completed) {
+                            v.animate().translationX(0).setDuration(200).start();
+                        }
+                        return true;
                 }
+                return false;
+            }
+        });
+    }
 
-                val responseCode = conn.responseCode
+    private void openLogin(View v) {
+        v.animate()
+                .translationX(swipeContainer.getWidth())
+                .setDuration(250)
+                .withEndAction(() -> {
+                    startActivity(new Intent(IntroActivity.this, LoginActivity.class));
+                    finish();
+                })
+                .start();
+    }
 
-                runOnUiThread {
-                    setLoading(false)
-                    if (responseCode in 200..299) {
-                        toast("Login successful")
-                        // TODO: Navigate to HomeActivity
-                    } else {
-                        toast("Login failed ($responseCode)")
-                    }
-                }
+    private void checkAndRequestPermissions() {
 
-            } catch (e: Exception) {
-                runOnUiThread {
-                    setLoading(false)
-                    toast("Connection error: ${e.message}")
-                }
-            } finally {
-                conn?.disconnect()
+        List<String> permissions = new ArrayList<>();
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_MEDIA_IMAGES)
+                    != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.READ_MEDIA_IMAGES);
+            }
+        } else {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
         }
-    }
 
-    private fun setLoading(loading: Boolean) {
-        isLoading = loading
-        runOnUiThread {
-            loginBtn.isEnabled = !loading
-            loginBtn.alpha = if (loading) 0.6f else 1f
+        if (!permissions.isEmpty()) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    permissions.toArray(new String[0]),
+                    PERMISSION_REQUEST_CODE
+            );
         }
-    }
-
-    private fun toast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
