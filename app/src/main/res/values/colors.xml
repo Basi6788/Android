@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Primary Brand Colors -->
-    <color name="colorPrimary">#FF6D00</color>
     <color name="orange">#FF9800</color>
 
-    <!-- Backgrounds -->
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="app_background">#FFFFFF</color>
-    <color name="colorInputBackground">#F5F5F5</color>
+    <!-- Warm light background (slight orange hint) -->
+    <color name="app_background">#FFF8F2</color>
 
-    <!-- Text Colors -->
-    <color name="colorText">#000000</color>
     <color name="brand_text">#111111</color>
-
-    <!-- Basics -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-
 </resources>
