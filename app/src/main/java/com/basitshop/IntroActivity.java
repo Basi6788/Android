@@ -37,7 +37,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Fullscreen
+        // ===== FULLSCREEN (SAFE) =====
         Window window = getWindow();
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -47,8 +47,7 @@ public class IntroActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (window.getInsetsController() != null) {
                 window.getInsetsController().hide(
-                        WindowInsets.Type.statusBars()
-                                | WindowInsets.Type.navigationBars()
+                        WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars()
                 );
             }
         } else {
@@ -61,34 +60,42 @@ public class IntroActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_intro);
 
+        // ===== FIND VIEWS =====
         shapeTop = findViewById(R.id.shape_top);
         shapeBottom = findViewById(R.id.shape_bottom);
         txtBrandName = findViewById(R.id.txt_brand_name);
         swipeContainer = findViewById(R.id.swipe_container);
         swipeThumb = findViewById(R.id.swipe_thumb);
 
-        // Animations (safe)
+        // ===== ANIMATIONS (SAFE) =====
         try {
             if (shapeTop != null) {
-                Animation a = AnimationUtils.loadAnimation(this, R.anim.from_top);
-                shapeTop.startAnimation(a);
+                shapeTop.startAnimation(
+                        AnimationUtils.loadAnimation(this, R.anim.from_top)
+                );
             }
             if (shapeBottom != null) {
-                Animation a = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
-                shapeBottom.startAnimation(a);
+                shapeBottom.startAnimation(
+                        AnimationUtils.loadAnimation(this, R.anim.from_bottom)
+                );
             }
             if (txtBrandName != null) {
-                Animation a = AnimationUtils.loadAnimation(this, R.anim.left_pop_fade);
-                txtBrandName.startAnimation(a);
+                txtBrandName.startAnimation(
+                        AnimationUtils.loadAnimation(this, R.anim.left_pop_fade)
+                );
             }
-        } catch (Exception ignored) {
+        } catch (Exception ignored) {}
+
+        // ⚠️ IMPORTANT: layout ready hone ke baad swipe setup
+        if (swipeContainer != null) {
+            swipeContainer.post(this::setupSwipeToLogin);
         }
 
-        setupSwipeToLogin();
         checkAndRequestPermissions();
     }
 
     private void setupSwipeToLogin() {
+
         if (swipeContainer == null || swipeThumb == null) return;
 
         swipeThumb.setOnTouchListener(new View.OnTouchListener() {
@@ -99,6 +106,8 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
+                if (swipeContainer.getWidth() <= 0) return false;
+
                 switch (event.getAction()) {
 
                     case MotionEvent.ACTION_DOWN:
@@ -107,7 +116,10 @@ public class IntroActivity extends AppCompatActivity {
 
                     case MotionEvent.ACTION_MOVE:
                         float delta = event.getRawX() - downX;
-                        float max = swipeContainer.getWidth() - v.getWidth() - 8;
+                        float max = swipeContainer.getWidth() - v.getWidth();
+
+                        if (max <= 0) return true;
+
                         delta = Math.max(0, Math.min(delta, max));
                         v.setTranslationX(delta);
 
@@ -129,6 +141,8 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void openLogin(View v) {
+        if (swipeContainer == null) return;
+
         v.animate()
                 .translationX(swipeContainer.getWidth())
                 .setDuration(250)
