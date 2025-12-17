@@ -1,6 +1,7 @@
 package com.basitshop
 
 import android.os.Bundle
+<<<<<<< HEAD
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -135,3 +136,14 @@ when (displayInfo.deviceType) {
         loginCard.scaleX = 0.85f
     }
 }
+=======
+import androidx.appcompat.app.AppCompatActivity
+
+class RegisterActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register)
+    }
+}
+
+>>>>>>> 317de5e (update)
