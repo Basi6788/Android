@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- ===== TOP SHAPE (IMAGE DESIGN) ===== -->
+    <!-- ===== TOP SHAPE ===== -->
     <ImageView
         android:id="@+id/shape_top"
         android:layout_width="0dp"
@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- ===== BOTTOM SHAPE (IMAGE DESIGN) ===== -->
+    <!-- ===== BOTTOM SHAPE ===== -->
     <ImageView
         android:id="@+id/shape_bottom"
         android:layout_width="0dp"
@@ -111,15 +111,17 @@
                     android:orientation="horizontal">
 
                     <CheckBox
+                        android:id="@+id/cb_remember"
                         android:text="Remember me"
                         android:textColor="#BFFFFFFF"/>
 
-                    <TextView
+                    <View
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="1dp"
                         android:layout_weight="1"/>
 
                     <TextView
+                        android:id="@+id/tv_forgot_password"
                         android:text="Forgot password"
                         android:textColor="@color/orange"/>
                 </LinearLayout>
@@ -142,19 +144,12 @@
                     android:gravity="center"
                     android:textColor="#80FFFFFF"/>
 
-                <!-- Social -->
+                <!-- Social Buttons -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal">
-<CheckBox
-    android:id="@+id/cb_remember"
-    android:text="Remember me" />
-
-<TextView
-    android:id="@+id/tv_forgot_password"
-    android:text="Forgot password" />
 
                     <Button
                         android:layout_width="0dp"
@@ -188,80 +183,3 @@
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/colorBackground">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="24dp">
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LOGIN TO\nYOUR ACCOUNT"
-            android:textSize="28sp"
-            android:textColor="@color/colorText"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginTop="60dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@drawable/bg_input_glass"
-            android:hint="Email"
-            android:textColor="@color/colorText"
-            android:textColorHint="#808080"
-            android:paddingStart="16dp"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@drawable/bg_input_glass"
-            android:hint="Password"
-            android:textColor="@color/colorText"
-            android:textColorHint="#808080"
-            android:paddingStart="16dp"
-            android:inputType="textPassword"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/et_email"/>
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="LOGIN"
-            android:background="@drawable/bg_button_orange"
-            app:backgroundTint="@null" 
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="30dp"
-            android:paddingVertical="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/et_password"/>
-
-        <TextView
-            android:id="@+id/tv_register_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account? Sign Up"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
