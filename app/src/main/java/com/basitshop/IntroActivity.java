@@ -14,7 +14,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,9 +26,11 @@ import java.util.List;
 public class IntroActivity extends AppCompatActivity {
 
     // Views
-    ImageView shapeTop, shapeBottom;
-    TextView txtBrandName;
-    FrameLayout swipeContainer, swipeThumb;
+    private ImageView shapeTop;
+    private ImageView shapeBottom;
+    private TextView txtBrandName;
+    private FrameLayout swipeContainer;
+    private FrameLayout swipeThumb;
 
     private static final int PERMISSION_REQUEST_CODE = 100;
 
@@ -37,7 +38,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // ================= FULLSCREEN (STATUS + NAV HIDE) =================
+        // ================= FULLSCREEN (SAFE) =================
         Window window = getWindow();
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -45,9 +46,11 @@ public class IntroActivity extends AppCompatActivity {
         );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.getInsetsController().hide(
-                    WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars()
-            );
+            if (window.getInsetsController() != null) {
+                window.getInsetsController().hide(
+                        WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars()
+                );
+            }
         } else {
             window.getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -55,39 +58,52 @@ public class IntroActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             );
         }
-        // =================================================================
+        // =====================================================
 
         setContentView(R.layout.activity_intro);
 
-        // ================= FIND VIEWS =================
+        // ================= FIND VIEWS (NULL SAFE) =================
         shapeTop = findViewById(R.id.shape_top);
         shapeBottom = findViewById(R.id.shape_bottom);
         txtBrandName = findViewById(R.id.txt_brand_name);
         swipeContainer = findViewById(R.id.swipe_container);
         swipeThumb = findViewById(R.id.swipe_thumb);
-        // ==============================================
+        // ==========================================================
 
-        // ================= EXISTING XML ANIMATIONS =================
-        Animation animFromTop = AnimationUtils.loadAnimation(this, R.anim.from_top);
-        Animation animFromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
-        Animation animBrand = AnimationUtils.loadAnimation(this, R.anim.left_pop_fade);
+        // ================= ANIMATIONS (OPTIONAL & SAFE) =================
+        try {
+            if (shapeTop != null) {
+                Animation a = AnimationUtils.loadAnimation(this, R.anim.from_top);
+                shapeTop.startAnimation(a);
+            }
 
-        shapeTop.startAnimation(animFromTop);
-        shapeBottom.startAnimation(animFromBottom);
-        txtBrandName.startAnimation(animBrand);
-        // ============================================================
+            if (shapeBottom != null) {
+                Animation a = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
+                shapeBottom.startAnimation(a);
+            }
 
-        // ================= NEW: SWIPE TO GET STARTED =================
-        setupSwipeToLogin();
+            if (txtBrandName != null) {
+                Animation a = AnimationUtils.loadAnimation(this, R.anim.left_pop_fade);
+                txtBrandName.startAnimation(a);
+            }
+        } catch (Exception ignored) {
+            // Agar animation missing ho to app crash nahi karegi
+        }
         // =============================================================
 
-        // ================= PERMISSIONS (UNCHANGED) =================
+        // ================= SWIPE TO LOGIN =================
+        setupSwipeToLogin();
+        // =================================================
+
+        // ================= PERMISSIONS =================
         checkAndRequestPermissions();
-        // ===========================================================
+        // ===============================================
     }
 
-    // ================= SWIPE LOGIC =================
+    // ================= SWIPE LOGIC (CRASH PROOF) =================
     private void setupSwipeToLogin() {
+
+        if (swipeContainer == null || swipeThumb == null) return;
 
         swipeThumb.setOnTouchListener(new View.OnTouchListener() {
 
@@ -136,9 +152,9 @@ public class IntroActivity extends AppCompatActivity {
                 })
                 .start();
     }
-    // =================================================
+    // =============================================================
 
-    // ================= PERMISSIONS =================
+    // ================= PERMISSIONS (FULL & SAFE) =================
     private void checkAndRequestPermissions() {
 
         List<String> listPermissionsNeeded = new ArrayList<>();
@@ -156,15 +172,12 @@ public class IntroActivity extends AppCompatActivity {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.READ_MEDIA_IMAGES)
                     != PackageManager.PERMISSION_GRANTED) {
                 listPermissionsNeeded.add(Manifest.permission.READ_MEDIA_IMAGES);
             }
-
         } else {
-
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -186,5 +199,5 @@ public class IntroActivity extends AppCompatActivity {
             );
         }
     }
-    // =================================================
+    // =============================================================
 }
