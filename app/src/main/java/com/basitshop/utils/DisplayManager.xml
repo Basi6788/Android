@@ -1,0 +1,72 @@
+package com.basitshop.utils
+
+import android.app.Activity
+import android.content.Context
+import android.content.res.Configuration
+import android.os.Build
+import android.util.DisplayMetrics
+import android.view.WindowManager
+
+object DisplayManager {
+
+    enum class DeviceType {
+        PHONE,
+        TABLET,
+        DESKTOP_DEX
+    }
+
+    data class DisplayInfo(
+        val widthDp: Int,
+        val heightDp: Int,
+        val density: Float,
+        val deviceType: DeviceType,
+        val isLandscape: Boolean
+    )
+
+    fun getDisplayInfo(activity: Activity): DisplayInfo {
+        val metrics = DisplayMetrics()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            activity.display?.getRealMetrics(metrics)
+        } else {
+            @Suppress("DEPRECATION")
+            activity.windowManager.defaultDisplay.getMetrics(metrics)
+        }
+
+        val density = metrics.density
+        val widthDp = (metrics.widthPixels / density).toInt()
+        val heightDp = (metrics.heightPixels / density).toInt()
+
+        val isLandscape =
+            activity.resources.configuration.orientation ==
+                    Configuration.ORIENTATION_LANDSCAPE
+
+        val deviceType = detectDeviceType(activity, widthDp)
+
+        return DisplayInfo(
+            widthDp = widthDp,
+            heightDp = heightDp,
+            density = density,
+            deviceType = deviceType,
+            isLandscape = isLandscape
+        )
+    }
+
+    private fun detectDeviceType(context: Context, widthDp: Int): DeviceType {
+        val uiMode = context.resources.configuration.uiMode
+
+        // Samsung DeX / Desktop mode
+        if (uiMode and Configuration.UI_MODE_TYPE_MASK ==
+            Configuration.UI_MODE_TYPE_DESK
+        ) {
+            return DeviceType.DESKTOP_DEX
+        }
+
+        // Tablet heuristic
+        return if (widthDp >= 600) {
+            DeviceType.TABLET
+        } else {
+            DeviceType.PHONE
+        }
+    }
+}
