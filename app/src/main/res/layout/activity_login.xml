@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_background">
 
-    <!-- ===== GLASS OVERLAY ===== -->
+    <!-- Glass overlay -->
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- ===== TOP SHAPE ===== -->
+    <!-- Top shape -->
     <ImageView
         android:id="@+id/shape_top"
         android:layout_width="0dp"
@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- ===== BOTTOM SHAPE ===== -->
+    <!-- Bottom shape -->
     <ImageView
         android:id="@+id/shape_bottom"
         android:layout_width="0dp"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- ===== CONTENT ===== -->
+    <!-- Content -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -57,7 +57,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <!-- Title -->
             <TextView
                 android:text="LOGIN TO\nYOUR ACCOUNT"
                 android:textSize="28sp"
@@ -71,9 +70,10 @@
                 android:text="Enter your login information"
                 android:textColor="#99FFFFFF"/>
 
-            <!-- Glass Card -->
+            <!-- Glass card -->
             <LinearLayout
-               android:id="@+id/login_card" android:layout_width="match_parent"
+                android:id="@+id/login_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:orientation="vertical"
@@ -81,7 +81,7 @@
                 android:background="@drawable/bg_glass_card">
 
                 <!-- Email -->
-                <EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -92,7 +92,7 @@
                     android:textColorHint="#80FFFFFF"/>
 
                 <!-- Password -->
-                <EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -103,14 +103,14 @@
                     android:textColor="@color/brand_text"
                     android:textColorHint="#80FFFFFF"/>
 
-                <!-- Remember / Forgot -->
+                <!-- Remember / forgot -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
-                    <CheckBox
+                    <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/cb_remember"
                         android:text="Remember me"
                         android:textColor="#BFFFFFFF"/>
@@ -126,53 +126,18 @@
                         android:textColor="@color/orange"/>
                 </LinearLayout>
 
-                <!-- Login Button -->
-                <Button
+                <!-- Login button -->
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="LOGIN"
                     android:textColor="@color/white"
-                    android:background="@drawable/bg_button_orange"
-                    app:backgroundTint="@null"/>
-
-                <!-- OR -->
-                <TextView
-                    android:layout_marginTop="16dp"
-                    android:text="OR"
-                    android:gravity="center"
-                    android:textColor="#80FFFFFF"/>
-
-                <!-- Social Buttons -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="GOOGLE"
-                        android:background="@drawable/bg_social_button"/>
-
-                    <View
-                        android:layout_width="12dp"
-                        android:layout_height="1dp"/>
-
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="APPLE"
-                        android:background="@drawable/bg_social_button"/>
-                </LinearLayout>
+                    android:background="@drawable/bg_button_orange"/>
 
             </LinearLayout>
 
-            <!-- Register -->
             <TextView
                 android:id="@+id/tv_register_toggle"
                 android:layout_marginTop="24dp"
