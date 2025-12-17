@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Brand -->
+    <!-- Brand name -->
     <TextView
         android:id="@+id/txt_brand_name"
         android:layout_width="wrap_content"
@@ -48,7 +48,8 @@
         android:text="BASITSHOP."
         android:textSize="40sp"
         android:textColor="@color/brand_text"
-        android:letterSpacing="0.2"
+        android:letterSpacing="0.22"
+        android:fontFamily="@font/space_grotesk_semibold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
