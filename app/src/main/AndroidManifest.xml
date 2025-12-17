@@ -2,14 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.basitshop">
 
-<<<<<<< HEAD
-    <!-- ===== CORE PERMISSION ===== -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- Storage / location permissions baad me,
-         jab feature actually use kare -->
-=======
-    <!-- ===== Permissions ===== -->
+    <!-- ===== CORE PERMISSIONS ===== -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -18,7 +11,7 @@
     <!-- Android 13+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
-    <!-- Legacy (safe limits) -->
+    <!-- Legacy storage (scoped limits) -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -26,67 +19,42 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
->>>>>>> 317de5e (update)
 
     <application
         android:allowBackup="true"
         android:label="BasitShop"
-<<<<<<< HEAD
         android:icon="@drawable/app_icon"
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.BasitShop">
 
-        <!-- INTRO / SPLASH -->
-        <activity
-            android:name=".IntroActivity"
-            android:exported="true"
-            android:theme="@style/Theme.BasitShop.NoActionBar">
-=======
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.BasitShop">
-
-        <!-- INTRO (LAUNCHER) -->
+        <!-- INTRO / SPLASH (LAUNCHER) -->
         <activity
             android:name=".IntroActivity"
             android:exported="true"
             android:theme="@style/Theme.BasitShop.NoActionBar"
             android:screenOrientation="portrait">
->>>>>>> 317de5e (update)
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-<<<<<<< HEAD
-=======
 
->>>>>>> 317de5e (update)
         </activity>
 
         <!-- LOGIN -->
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-<<<<<<< HEAD
-            android:theme="@style/Theme.BasitShop.NoActionBar" />
-=======
             android:theme="@style/Theme.BasitShop.NoActionBar"
             android:screenOrientation="portrait" />
->>>>>>> 317de5e (update)
 
         <!-- REGISTER -->
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-<<<<<<< HEAD
-            android:theme="@style/Theme.BasitShop.NoActionBar" />
-=======
             android:theme="@style/Theme.BasitShop.NoActionBar"
             android:screenOrientation="portrait" />
->>>>>>> 317de5e (update)
 
     </application>
 
