@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
@@ -17,53 +16,33 @@
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:textColor">@color/colorText</item>
 
-        <!-- Cutout / fullscreen -->
-        <item name="android:windowLayoutInDisplayCutoutMode"
-            tools:targetApi="o_mr1">shortEdges</item>
+        <!-- Fullscreen / cutout -->
+        <item
+            name="android:windowLayoutInDisplayCutoutMode"
+            tools:targetApi="o_mr1">
+            shortEdges
+        </item>
 
         <!-- System bars -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
 
-=======
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.BasitShop" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/white</item>
-        
-        <item name="colorSecondary">@color/colorPrimary</item>
-        <item name="colorOnSecondary">@color/white</item>
-        
-        <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="android:textColor">@color/colorText</item>
-
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
-
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        
->>>>>>> 317de5e (update)
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
 
+        <!-- Night mode: light status bar OFF -->
         <item name="android:windowLightStatusBar">false</item>
 
-<<<<<<< HEAD
         <!-- No ActionBar -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+
     </style>
 
-    <!-- REQUIRED: Night version of NoActionBar -->
+    <!-- Night NoActionBar alias -->
     <style name="Theme.BasitShop.NoActionBar" parent="Theme.BasitShop">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
 
 </resources>
-=======
-    </style>
-</resources>
->>>>>>> 317de5e (update)
