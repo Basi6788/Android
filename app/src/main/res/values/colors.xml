@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- ===== REQUIRED BY THEMES / LIBS (DO NOT REMOVE) ===== -->
+    <color name="colorPrimary">#FF6D00</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorText">#000000</color>
+
+    <!-- ===== APP BASE COLORS ===== -->
     <color name="orange">#FF9800</color>
 
-    <!-- Warm light background (slight orange hint) -->
+    <!-- Light mode background (slight warm tone) -->
     <color name="app_background">#FFF8F2</color>
 
+    <!-- Brand text -->
     <color name="brand_text">#111111</color>
+
+    <!-- Inputs -->
+    <color name="colorInputBackground">#F5F5F5</color>
+
+    <!-- Basics -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
 </resources>
