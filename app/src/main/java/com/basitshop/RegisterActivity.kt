@@ -1,17 +1,16 @@
 package com.basitshop
 
 import android.os.Bundle
-<<<<<<< HEAD
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.basitshop.utils.DisplayManager
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
-import com.basitshop.utils.DisplayManager
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -38,6 +37,20 @@ class RegisterActivity : AppCompatActivity() {
         registerCard.startAnimation(
             AnimationUtils.loadAnimation(this, R.anim.fade_slide_up)
         )
+
+        // Display / device handling (was illegally outside class)
+        val displayInfo = DisplayManager.getDisplayInfo(this)
+        when (displayInfo.deviceType) {
+            DisplayManager.DeviceType.PHONE -> {
+                // default
+            }
+            DisplayManager.DeviceType.TABLET -> {
+                registerCard.scaleX = 0.95f
+            }
+            DisplayManager.DeviceType.DESKTOP_DEX -> {
+                registerCard.scaleX = 0.85f
+            }
+        }
 
         registerBtn.setOnClickListener {
             if (isLoading) return@setOnClickListener
@@ -119,31 +132,3 @@ class RegisterActivity : AppCompatActivity() {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
-val displayInfo = DisplayManager.getDisplayInfo(this)
-
-when (displayInfo.deviceType) {
-    DisplayManager.DeviceType.PHONE -> {
-        // normal layout (default)
-    }
-
-    DisplayManager.DeviceType.TABLET -> {
-        // thora wide padding / card width adjust
-        loginCard.scaleX = 0.95f
-    }
-
-    DisplayManager.DeviceType.DESKTOP_DEX -> {
-        // desktop / DeX mode
-        loginCard.scaleX = 0.85f
-    }
-}
-=======
-import androidx.appcompat.app.AppCompatActivity
-
-class RegisterActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
-    }
-}
-
->>>>>>> 317de5e (update)
