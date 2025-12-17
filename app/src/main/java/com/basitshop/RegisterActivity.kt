@@ -1,9 +1,9 @@
 package com.basitshop
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
@@ -16,6 +16,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var emailEt: EditText
     private lateinit var passEt: EditText
     private lateinit var registerBtn: Button
+    private lateinit var loginToggle: TextView
+    private lateinit var registerCard: View
 
     @Volatile
     private var isLoading = false
@@ -27,6 +29,13 @@ class RegisterActivity : AppCompatActivity() {
         emailEt = findViewById(R.id.et_email)
         passEt = findViewById(R.id.et_password)
         registerBtn = findViewById(R.id.btn_register)
+        loginToggle = findViewById(R.id.tv_login_toggle)
+        registerCard = findViewById(R.id.register_card)
+
+        // Entry animation
+        registerCard.startAnimation(
+            AnimationUtils.loadAnimation(this, R.anim.fade_slide_up)
+        )
 
         registerBtn.setOnClickListener {
             if (isLoading) return@setOnClickListener
@@ -40,6 +49,11 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             performRegister(email, password)
+        }
+
+        loginToggle.setOnClickListener {
+            finish()
+            overridePendingTransition(R.anim.fade_slide_left, android.R.anim.fade_out)
         }
     }
 
@@ -56,7 +70,10 @@ class RegisterActivity : AppCompatActivity() {
                 conn.readTimeout = 10000
                 conn.doInput = true
                 conn.doOutput = true
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+                conn.setRequestProperty(
+                    "Content-Type",
+                    "application/x-www-form-urlencoded"
+                )
 
                 val body = "email=$email&password=$pass"
 
@@ -69,10 +86,9 @@ class RegisterActivity : AppCompatActivity() {
 
                 runOnUiThread {
                     setLoading(false)
-
                     if (responseCode in 200..299) {
                         toast("Account created successfully")
-                        finish() // back to Login
+                        finish()
                     } else {
                         toast("Registration failed ($responseCode)")
                     }
