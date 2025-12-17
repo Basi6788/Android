@@ -6,27 +6,33 @@
     android:layout_height="match_parent"
     android:background="@color/app_background">
 
-    <!-- Top Left Shape -->
+    <!-- Subtle glass overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#08000000"/>
+
+    <!-- Top Left Shape (peek style) -->
     <ImageView
         android:id="@+id/shape_top"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:src="@drawable/top_left"
         android:scaleType="fitXY"
-        android:translationX="-24dp"
-        android:translationY="-24dp"
+        android:translationX="-60dp"
+        android:translationY="-40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Bottom Right Shape -->
+    <!-- Bottom Right Shape (peek style) -->
     <ImageView
         android:id="@+id/shape_bottom"
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:src="@drawable/bottom_right"
         android:scaleType="fitXY"
-        android:translationX="24dp"
-        android:translationY="24dp"
+        android:translationX="60dp"
+        android:translationY="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -35,55 +41,52 @@
         android:id="@+id/txt_brand_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BASITSHOP"
+        android:text="BASITSHOP."
         android:textSize="42sp"
-        android:textStyle="bold"
-        android:letterSpacing="0.18"
+        android:letterSpacing="0.22"
         android:textColor="@color/brand_text"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/space_grotesk_semibold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.42"/>
 
-    <!-- Button -->
-    <LinearLayout
-        android:id="@+id/layout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginBottom="64dp"
+    <!-- Swipe to Get Started -->
+    <FrameLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="300dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/bg_glass_pill"
+        android:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <FrameLayout
-            android:id="@+id/btn_action_container"
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:background="@drawable/bg_liquid_glass"
-            android:elevation="16dp">
-
-            <ImageView
-                android:id="@+id/icon_arrow"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_triangle_down"
-                android:tint="@color/orange"/>
-        </FrameLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Started"
-            android:textSize="14sp"
+            android:text="Swipe to Get Started"
+            android:textColor="@color/brand_text"
             android:textStyle="bold"
-            android:textColor="@color/orange"
-            android:layout_marginTop="12dp"
-            android:letterSpacing="0.08"/>
-    </LinearLayout>
+            android:layout_gravity="center"/>
+
+        <FrameLayout
+            android:id="@+id/swipe_thumb"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_glass_circle"
+            android:elevation="20dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_arrow_right"
+                android:tint="@color/orange"/>
+        </FrameLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
