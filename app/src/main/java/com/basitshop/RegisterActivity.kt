@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
+import com.basitshop.utils.DisplayManager
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -115,5 +116,22 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun toast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+}
+val displayInfo = DisplayManager.getDisplayInfo(this)
+
+when (displayInfo.deviceType) {
+    DisplayManager.DeviceType.PHONE -> {
+        // normal layout (default)
+    }
+
+    DisplayManager.DeviceType.TABLET -> {
+        // thora wide padding / card width adjust
+        loginCard.scaleX = 0.95f
+    }
+
+    DisplayManager.DeviceType.DESKTOP_DEX -> {
+        // desktop / DeX mode
+        loginCard.scaleX = 0.85f
     }
 }
