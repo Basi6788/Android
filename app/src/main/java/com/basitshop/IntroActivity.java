@@ -39,25 +39,26 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // ================================================================
-        // FULLSCREEN (AS YOU HAD IT)
-        // ================================================================
+        // ================= FULLSCREEN (UNCHANGED) =================
         Window w = getWindow();
-        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        // ================================================================
+        w.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
+        // ==========================================================
 
         setContentView(R.layout.activity_intro);
 
-        // IDs
+        // ================= FIND VIEWS =================
         shapeTop = findViewById(R.id.shape_top);
         shapeBottom = findViewById(R.id.shape_bottom);
         txtBrandName = findViewById(R.id.txt_brand_name);
         layoutButton = findViewById(R.id.layout_button);
         btnActionContainer = findViewById(R.id.btn_action_container);
         iconArrow = findViewById(R.id.icon_arrow);
+        // ==============================================
 
-        // ===================== EXISTING ANIMATIONS ======================
+        // ================= XML ANIMATIONS =================
         Animation animFromTop = AnimationUtils.loadAnimation(this, R.anim.from_top);
         Animation animFromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom);
         Animation animLeftPop = AnimationUtils.loadAnimation(this, R.anim.left_pop_fade);
@@ -69,13 +70,13 @@ public class IntroActivity extends AppCompatActivity {
         txtBrandName.startAnimation(animLeftPop);
         layoutButton.startAnimation(animButtonBounce);
         iconArrow.startAnimation(animArrowShake);
-        // ================================================================
+        // =================================================
 
-        // ===================== NEW: LIQUID GLASS PULSE ===================
+        // ================= LIQUID GLASS PULSE (FIXED) =================
         startLiquidPulse(btnActionContainer);
-        // ================================================================
+        // =============================================================
 
-        // ===================== CLICK → LOGIN =============================
+        // ================= CLICK → LOGIN =================
         View.OnClickListener startAction = v -> {
             Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -84,27 +85,34 @@ public class IntroActivity extends AppCompatActivity {
 
         btnActionContainer.setOnClickListener(startAction);
         layoutButton.setOnClickListener(startAction);
-        // ================================================================
+        // =================================================
 
-        // Permissions
+        // ================= PERMISSIONS =================
         checkAndRequestPermissions();
+        // ===============================================
     }
 
-    // ===================== LIQUID PULSE METHOD =========================
+    // ================= LIQUID PULSE (CI SAFE) =================
     private void startLiquidPulse(View view) {
+
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1f, 1.08f, 1f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1f, 1.08f, 1f);
+
+        scaleX.setRepeatCount(ValueAnimator.INFINITE);
+        scaleY.setRepeatCount(ValueAnimator.INFINITE);
+
+        scaleX.setRepeatMode(ValueAnimator.RESTART);
+        scaleY.setRepeatMode(ValueAnimator.RESTART);
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(scaleX, scaleY);
         animatorSet.setDuration(1400);
-        animatorSet.setRepeatCount(ValueAnimator.INFINITE);
         animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
         animatorSet.start();
     }
-    // ================================================================
+    // ===========================================================
 
-    // ===================== PERMISSIONS (UNCHANGED) =====================
+    // ================= PERMISSIONS (UNCHANGED) =================
     private void checkAndRequestPermissions() {
         List<String> listPermissionsNeeded = new ArrayList<>();
 
@@ -142,5 +150,5 @@ public class IntroActivity extends AppCompatActivity {
             );
         }
     }
-    // ================================================================
+    // ===========================================================
 }
