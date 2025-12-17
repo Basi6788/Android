@@ -1,24 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base App Theme -->
     <style name="Theme.BasitShop" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        
+
+        <!-- Primary colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/white</item>
-        
+
+        <!-- Window & text -->
         <item name="android:windowBackground">?android:attr/windowBackground</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
 
+        <!-- System bars -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        
+
+        <!-- Fullscreen / edge-to-edge -->
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode"
+            tools:targetApi="o_mr1">shortEdges</item>
 
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
-
+        <!-- Disable title/action bar -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        
-        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+
+        <!-- Material button default -->
+        <item name="materialButtonStyle">
+            @style/Widget.MaterialComponents.Button
+        </item>
     </style>
+
+    <!-- REQUIRED: NoActionBar theme used in Manifest -->
+    <style name="Theme.BasitShop.NoActionBar" parent="Theme.BasitShop">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
 </resources>
