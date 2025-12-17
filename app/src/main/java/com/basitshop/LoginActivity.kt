@@ -2,65 +2,116 @@ package com.basitshop
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.io.BufferedWriter
+import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var emailEt: EditText
+    private lateinit var passEt: EditText
+    private lateinit var loginBtn: Button
+    private lateinit var registerToggle: TextView
+
+    @Volatile
+    private var isLoading = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val emailEt = findViewById<EditText>(R.id.et_email)
-        val passEt = findViewById<EditText>(R.id.et_password)
-        val loginBtn = findViewById<Button>(R.id.btn_login)
-        val registerToggle = findViewById<TextView>(R.id.tv_register_toggle)
+        emailEt = findViewById(R.id.et_email)
+        passEt = findViewById(R.id.et_password)
+        loginBtn = findViewById(R.id.btn_login)
+        registerToggle = findViewById(R.id.tv_register_toggle)
 
         loginBtn.setOnClickListener {
-            val email = emailEt.text.toString()
-            val password = passEt.text.toString()
+            if (isLoading) return@setOnClickListener
 
-            if(email.isNotEmpty() && password.isNotEmpty()) {
-                performLogin(email, password)
-            } else {
-                Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show()
+            val email = emailEt.text.toString().trim()
+            val password = passEt.text.toString().trim()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                toast("Fill all fields")
+                return@setOnClickListener
             }
+
+            performLogin(email, password)
         }
-        
+
         registerToggle.setOnClickListener {
-             Toast.makeText(this, "Switching to Register Mode (Logic here)", Toast.LENGTH_SHORT).show()
-             // Yahan tum Register ka logic laga sakte ho, ya text badal sakte ho
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
     private fun performLogin(email: String, pass: String) {
-        // Simple Networking Thread (Termux friendly, no Retrofit complex setup needed for now)
+        setLoading(true)
+
         thread {
+            var conn: HttpURLConnection? = null
             try {
-                // Using Config file URL
                 val url = URL(Config.LOGIN_URL)
-                val conn = url.openConnection() as HttpURLConnection
+                conn = url.openConnection() as HttpURLConnection
                 conn.requestMethod = "POST"
+                conn.connectTimeout = 10000
+                conn.readTimeout = 10000
+                conn.doInput = true
                 conn.doOutput = true
-                
-                // Sending Data...
-                // (Yeh basic connection check hai)
-                
-                runOnUiThread {
-                    Toast.makeText(this, "Connecting to ${Config.BASE_URL}...", Toast.LENGTH_LONG).show()
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+
+                // Basic form body (backend friendly)
+                val body = "email=$email&password=$pass"
+
+                BufferedWriter(OutputStreamWriter(conn.outputStream, "UTF-8")).use {
+                    it.write(body)
+                    it.flush()
                 }
+
+                val responseCode = conn.responseCode
+
+                runOnUiThread {
+                    setLoading(false)
+
+                    if (responseCode in 200..299) {
+                        toast("Login successful")
+
+                        // TODO: Navigate to Home / Dashboard
+                        // startActivity(Intent(this, HomeActivity::class.java))
+                        // finish()
+
+                    } else {
+                        toast("Login failed ($responseCode)")
+                    }
+                }
+
             } catch (e: Exception) {
                 runOnUiThread {
-                    Toast.makeText(this, "Connection Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    setLoading(false)
+                    toast("Connection error: ${e.message}")
                 }
+            } finally {
+                conn?.disconnect()
             }
         }
     }
-}
 
+    private fun setLoading(loading: Boolean) {
+        isLoading = loading
+        runOnUiThread {
+            loginBtn.isEnabled = !loading
+            loginBtn.alpha = if (loading) 0.6f else 1f
+        }
+    }
+
+    private fun toast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+}
